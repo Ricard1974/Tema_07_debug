@@ -1,0 +1,141 @@
+
+
+https://www.youtube.com/watch?v=khhz8RAoSww&t=417s
+
+Amb winget per global, es un phar que es te que instalas en un directori 
+local , no es necessari. amb l instalacio local amb composer es millor.
+
+
+
+➜ wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
+
+➜ chmod +x phpunit
+
+➜ ./phpunit --version
+
+
+
+
+https://docs.phpunit.de/en/10.4/installation.html#composer
+
+
+Instalacio amb composer a l arrel del projecte
+instalacio de la ultima versio
+composer require --dev phpunit/phpunit
+
+composer update
+
+editar el json 
+{
+    "require-dev": {
+        "phpunit/phpunit": "^10.4"  //es pot cambiar la versio aqui despres fer el update
+    }
+}
+
+
+agregar el directori de fitchers
+    "autoload": {
+        "classmap": [
+            "src/"  
+        ]
+    },
+
+    
+
+
+Mirar la versio que esta instalñada i si esta funcionant
+./vendor/bin/phpunit --version
+
+
+SEGUN MANUAL
+https://docs.phpunit.de/en/10.4/organizing-tests.html
+
+carpeta /src per el projecte 
+carpeta /tests/unit
+
+
+execucio dels tests 
+$ ./tools/phpunit --bootstrap tests/bootstrap.php tests
+
+
+
+$ ./tools/phpunit --bootstrap src/autoload.php tests/unit/WorldTest.php
+
+
+
+===================================
+
+proyecto/
+├── src/
+│   ├── Clase.php
+└── tests/
+    ├── Unit/
+    │   ├── ClaseTest.php
+    └── Feature/
+        ├── OtraClaseTest.php
+
+
+
+
+proyecto/
+├── src/
+│   ├── Clase.php           // Archivo que contiene la clase a probar
+│   └── OtraClase.php      // Otro archivo con otra clase
+└── tests/
+    ├── Unit/
+    │   ├── ClaseTest.php   // Archivo de pruebas para la clase Clase
+    │   └── OtraClaseTest.php // Archivo de pruebas para OtraClase
+    └── Feature/
+        ├── CaracteristicaTest.php // Archivo de pruebas para características más amplias
+        └── OtraCaracteristicaTest.php // Otro archivo de pruebas de características
+
+
+
+php vendor/bin/phpunit   iniciar el tests
+
+
+
+composer dump-autoload -o
+
+
+
+asserts:
+
+
+<?php declare(strict_types=1);
+use PHPUnit\Framework\TestCase;
+
+final class TrueTest extends TestCase
+{
+    public function testFailure(): void
+    {
+        $this->assertTrue(false);
+    }
+}
+
+
+<?php declare(strict_types=1);
+use PHPUnit\Framework\TestCase;
+
+final class FalseTest extends TestCase
+{
+    public function testFailure(): void
+    {
+        $this->assertFalse(true);
+    }
+}
+
+
+
+<?php declare(strict_types=1);
+use PHPUnit\Framework\TestCase;
+
+final class GreaterThanOrEqualTest extends TestCase
+{
+    public function testFailure(): void
+    {
+        $this->assertGreaterThanOrEqual(2, 1);
+    }
+}
+
+
