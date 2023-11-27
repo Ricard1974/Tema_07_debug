@@ -13,7 +13,7 @@ function grau_estudiant($n) // rectificacio del exercici
     } elseif ($n >= 33) {
         return "Tercera Divisió";
     } else {
-        return "Suspés";
+        return "Suspes";
     }
 
 
@@ -24,7 +24,7 @@ function grau_estudiant($n) // rectificacio del exercici
     // } elseif ($n >= 33 && $n <= 44) {
     //     return "Tercera Divisió";
     // } else {
-    //     return "Suspés";
+    //     return "Suspes";
     // }
 }
 
