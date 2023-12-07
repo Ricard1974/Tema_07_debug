@@ -2,40 +2,53 @@
 
 use PHPUnit\Framework\TestCase;
 
-class GrauTest extends TestCase{
+class GrauTest extends TestCase
+{
 
     public function testSiSonIguals(){
 
         $grau = new Grau();
 
-        $this->assertEquals("Primera Divisió (de 60 cap amunt)",$grau->grau_estudiant(90)); // si dona el que ha de donar 
+        $this->assertEquals("Primera",
+            $grau->grau_estudiant(90)); // si dona el que ha de donar
 
-        $this->assertEquals("Suspés (de 0 a 32)", 
-        $grau->grau_estudiant(-1));  // resultat negatiu
+        $this->assertEquals("Escriu un numero",
+            $grau->grau_estudiant(-1)); // resultat negatiu
 
-        $this->assertEquals("Segona Divisió (de 45 a 59)",
-        $grau->grau_estudiant(45)); // limit de 45
+        $this->assertEquals("Segona",
+            $grau->grau_estudiant(45)); // limit de 45
 
-        $this->assertEquals("Segona Divisió (de 45 a 59)",
-        $grau->grau_estudiant(45.5)); // fent servir floats
+        $this->assertEquals("Segona",
+            $grau->grau_estudiant(45.5)); // fent servir floats
 
-        $this->assertEquals("Primera Divisió (de 60 cap amunt)",
-        $grau->grau_estudiant(100000000000)); // fent servir numeros molt alts
+        $this->assertEquals("Primera",
+            $grau->grau_estudiant(100000000000)); // fent servir numeros molt alts
 
+        $this->assertTrue($grau->grau_estudiant(6.55)); // afegint un cas per a una nota decimal amb un valor només de dos decimales
 
-     
-    } 
+        $this->assertFalse($grau->grau_estudiant("hola")); // afegint un cas per a una nota amb un valor no numèric
+    }
+
+    public function testNumeroNotaValida()
+    {
+        $grau = new Grau();
+
+        $this->assertTrue($grau->numero_nota_valid(66));
+        $this->assertTrue($grau->numero_nota_valid(44));
+        $this->assertTrue($grau->numero_nota_valid(33.3));//positiu amb decimal
+        $this->assertFalse($grau->numero_nota_valid(-1));// negatiu
+        $this->assertFalse($grau->numero_nota_valid(-1.5));// negatiu amb decimals
+        $this->assertFalse($grau->numero_nota_valid(100000000));// numero llarg
+        $this->assertTrue($grau->numero_nota_valid(6.55)); // dos decimals
+    }
+
+    public function testGrauEstudiantNotaNoValida()
+    {
+        $grau = new Grau();
+
+        $this->assertEquals("Entra una nota valida", $grau->grau_estudiant(-1));// negatiu
+        $this->assertEquals("Entra una nota valida", $grau->grau_estudiant(111));// numero mes alt
+        $this->assertEquals("Entra una nota valida", $grau->grau_estudiant("kk")); // string
+    }
 }
 ?>
-
-
-php vendor/bin/phpunit tests
-PHPUnit 10.4.2 by Sebastian Bergmann and contributors.
-
-Runtime:       PHP 8.2.4
-
-.                                                                   1 / 1 (100%)
-
-Time: 00:00.009, Memory: 8.00 MB
-
-OK (1 test, 5 assertions)
